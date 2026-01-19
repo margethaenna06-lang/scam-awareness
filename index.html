@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lottery Scam Awareness Simulation</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #000;
+}
+
+/* EDUCATION BANNER */
+.banner {
+    background: darkred;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* POPUP */
+.popup {
+    background: white;
+    width: 420px;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 25px red;
+}
+
+h1 {
+    color: red;
+}
+
+.timer {
+    color: red;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: darkred;
+}
+
+/* EDUCATION REVEAL */
+.reveal {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: left;
+}
+
+.reveal h2 {
+    color: darkred;
+}
+</style>
+</head>
+
+<body>
+
+<div class="banner">
+⚠️ EDUCATIONAL SCAM SIMULATION — No data is collected
+</div>
+
+<div class="overlay" id="scamView">
+    <div class="popup">
+        <h1>🎉 CONGRATULATIONS 🎉</h1>
+        <p>Your number was selected in the</p>
+        <h3>International Online Lottery</h3>
+
+        <p><strong>Prize: RM 50,000</strong></p>
+
+        <p>⏳ Claim within:</p>
+        <div class="timer" id="countdown">15</div>
+
+        <input placeholder="Full Name">
+        <input placeholder="Bank Name">
+        <input placeholder="Account Number">
+
+        <button onclick="reveal()">SUBMIT & CLAIM</button>
+
+        <p style="font-size:12px;color:gray;">
+            This prize is confidential.
+        </p>
+    </div>
+</div>
+
+<div class="overlay" id="educationView" style="display:none;">
+    <div class="reveal">
+        <h2>🚨 This Was a Scam Simulation</h2>
+
+        <p>
+            You just interacted with a realistic example of an
+            <strong>online lottery scam</strong>.
+        </p>
+
+        <h3>Red Flags:</h3>
+        <ul>
+            <li>Unexpected prize</li>
+            <li>Urgency and countdown</li>
+            <li>Request for banking details</li>
+            <li>Pressure and secrecy</li>
+        </ul>
+
+        <h3>Important Lessons:</h3>
+        <ul>
+            <li>Real lotteries do not contact random winners</li>
+            <li>Never share bank information online</li>
+            <li>Scammers use emotion and urgency</li>
+        </ul>
+
+        <p><strong>No data was collected.</strong></p>
+    </div>
+</div>
+
+<script>
+let time = 15;
+setInterval(() => {
+    if (time > 0) {
+        time--;
+        document.getElementById("countdown").innerText = time;
+    }
+}, 1000);
+
+function reveal() {
+    document.getElementById("scamView").style.display = "none";
+    document.getElementById("educationView").style.display = "flex";
+}
+</script>
+
+</body>
+</html>
