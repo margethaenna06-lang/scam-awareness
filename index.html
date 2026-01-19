@@ -11,7 +11,6 @@ body {
     background: #000;
 }
 
-/* EDUCATION BANNER */
 .banner {
     background: darkred;
     color: white;
@@ -21,7 +20,6 @@ body {
     font-size: 14px;
 }
 
-/* OVERLAY */
 .overlay {
     position: fixed;
     inset: 0;
@@ -31,7 +29,6 @@ body {
     align-items: center;
 }
 
-/* POPUP */
 .popup {
     background: white;
     width: 420px;
@@ -74,13 +71,12 @@ button:hover {
     background: darkred;
 }
 
-/* EDUCATION REVEAL */
 .reveal {
     display: none;
     background: white;
     padding: 30px;
     border-radius: 10px;
-    width: 500px;
+    width: 520px;
     text-align: left;
 }
 
@@ -93,25 +89,35 @@ button:hover {
 <body>
 
 <div class="banner">
-⚠️ EDUCATIONAL SCAM SIMULATION — No data is collected
+⚠️ EDUCATIONAL SCAM SIMULATION — DO NOT ENTER REAL INFORMATION
 </div>
 
 <div class="overlay" id="scamView">
     <div class="popup">
+
         <h1>🎉 CONGRATULATIONS 🎉</h1>
         <p>Your number was selected in the</p>
         <h3>International Online Lottery</h3>
-
         <p><strong>Prize: RM 50,000</strong></p>
 
         <p>⏳ Claim within:</p>
         <div class="timer" id="countdown">15</div>
 
-        <input placeholder="Full Name">
-        <input placeholder="Bank Name">
-        <input placeholder="Account Number">
+        <p style="color:red;font-size:13px;">
+            ⚠️ Simulation only.  
+            Do NOT enter real personal or banking information.
+        </p>
 
-        <button onclick="reveal()">SUBMIT & CLAIM</button>
+        <input id="name" placeholder="Sample Name (e.g. Ali Ahmad)">
+        <input id="bank" placeholder="Sample Bank Name (e.g. ABC Bank)">
+        <input id="account" placeholder="Dummy Account Number (e.g. 123456)">
+
+        <label style="font-size:13px;">
+            <input type="checkbox" id="consent">
+            I confirm all information entered is fake and for simulation only.
+        </label>
+
+        <button onclick="submitSimulation()">SUBMIT & CLAIM</button>
 
         <p style="font-size:12px;color:gray;">
             This prize is confidential.
@@ -121,42 +127,60 @@ button:hover {
 
 <div class="overlay" id="educationView" style="display:none;">
     <div class="reveal">
-        <h2>🚨 This Was a Scam Simulation</h2>
+        <h2>🚨 Scam Awareness Explanation</h2>
 
         <p>
-            You just interacted with a realistic example of an
-            <strong>online lottery scam</strong>.
+            This page simulated a common <strong>online lottery scam</strong>.
+            Scammers often pressure victims to submit personal and banking details.
         </p>
 
         <h3>Red Flags:</h3>
         <ul>
             <li>Unexpected prize</li>
-            <li>Urgency and countdown</li>
-            <li>Request for banking details</li>
-            <li>Pressure and secrecy</li>
+            <li>Urgent countdown</li>
+            <li>Request for bank details</li>
+            <li>Confidentiality pressure</li>
         </ul>
 
-        <h3>Important Lessons:</h3>
-        <ul>
-            <li>Real lotteries do not contact random winners</li>
-            <li>Never share bank information online</li>
-            <li>Scammers use emotion and urgency</li>
-        </ul>
-
-        <p><strong>No data was collected.</strong></p>
+        <p><strong>No real data was collected.</strong></p>
     </div>
 </div>
 
 <script>
-let time = 15;
+let startTime = Date.now();
+let countdown = 15;
+
 setInterval(() => {
-    if (time > 0) {
-        time--;
-        document.getElementById("countdown").innerText = time;
+    if (countdown > 0) {
+        countdown--;
+        document.getElementById("countdown").innerText = countdown;
     }
 }, 1000);
 
-function reveal() {
+function submitSimulation() {
+
+    if (!document.getElementById("consent").checked) {
+        alert("Please confirm the information is fake.");
+        return;
+    }
+
+    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+
+    fetch("https://script.google.com/a/macros/student.uitm.edu.my/s/AKfycbzZAPzzW8e1lTITeOGhh64VmPefUpenJne6NOoBctR5qAGVVGIRf_bGys3TZ-s9dLRg/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            bank: document.getElementById("bank").value,
+            account: document.getElementById("account").value,
+            timeSpent: timeSpent,
+            countdown: countdown
+        })
+    });
+
     document.getElementById("scamView").style.display = "none";
     document.getElementById("educationView").style.display = "flex";
 }
