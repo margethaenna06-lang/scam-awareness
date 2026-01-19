@@ -11,15 +11,6 @@ body {
   background: #000;
 }
 
-.banner {
-  background: darkred;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-}
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -38,9 +29,7 @@ body {
   box-shadow: 0 0 25px red;
 }
 
-h1 {
-  color: red;
-}
+h1 { color: red; }
 
 .timer {
   color: red;
@@ -63,34 +52,23 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
 }
 
-button:hover {
-  background: darkred;
-}
+button:hover { background: darkred; }
 
-.reveal {
+.education {
   display: none;
   background: white;
   padding: 30px;
   border-radius: 10px;
-  width: 520px;
-  text-align: left;
-}
-
-.reveal h2 {
-  color: darkred;
+  width: 500px;
 }
 </style>
 </head>
 
 <body>
-
-<div class="banner">
-⚠️ EDUCATIONAL SCAM SIMULATION — DO NOT ENTER REAL INFORMATION
-</div>
 
 <div class="overlay" id="scamView">
   <div class="popup">
@@ -103,21 +81,16 @@ button:hover {
     <p>⏳ Claim within:</p>
     <div class="timer" id="countdown">15</div>
 
-    <p style="color:red;font-size:13px;">
-      ⚠️ Simulation only.  
-      Do NOT enter real personal or banking information.
-    </p>
-
-    <!-- FORM POST (NO CORS ISSUES) -->
+    <!-- FORM -->
     <form
-      action="https://script.google.com/macros/s/AKfycbw9gya8yHp4V3CIddKFbZh9vuuadNY5lRklLIZi5JOx_vU9Ys2jzWJzVs5nGQMFZZXK/exec"
+      action="PASTE_YOUR_WEB_APP_EXEC_URL_HERE"
       method="POST"
       target="hiddenFrame"
       onsubmit="return beforeSubmit();">
 
-      <input name="name" placeholder="Sample Name (e.g. Ali Ahmad)">
-      <input name="bank" placeholder="Sample Bank Name (e.g. ABC Bank)">
-      <input name="account" placeholder="Dummy Account Number (e.g. 123456)">
+      <input name="name" placeholder="Sample Name (e.g. Ali Ahmad)" required>
+      <input name="bank" placeholder="Sample Bank (e.g. ABC Bank)" required>
+      <input name="account" placeholder="Dummy Account (e.g. 123456)" required>
 
       <input type="hidden" name="timeSpent" id="timeSpent">
       <input type="hidden" name="countdown" id="countdownValue">
@@ -132,30 +105,23 @@ button:hover {
 
     <iframe name="hiddenFrame" style="display:none;"></iframe>
 
-    <p style="font-size:12px;color:gray;">
-      This prize is confidential.
-    </p>
-
   </div>
 </div>
 
-<div class="overlay" id="educationView" style="display:none;">
-  <div class="reveal">
-    <h2>🚨 Scam Awareness Explanation</h2>
-
+<div class="overlay" id="educationView">
+  <div class="education">
+    <h2>🚨 Scam Awareness</h2>
     <p>
-      This page simulated a common <strong>online lottery scam</strong>.
-      Scammers often pressure victims to submit personal and banking details.
+      This page simulated a common online lottery scam.
+      Scammers often pressure victims to submit personal
+      and banking information.
     </p>
-
-    <h3>Red Flags:</h3>
     <ul>
       <li>Unexpected prize</li>
-      <li>Urgent countdown</li>
+      <li>Urgency countdown</li>
       <li>Request for bank details</li>
       <li>Confidentiality pressure</li>
     </ul>
-
     <p><strong>No real data was collected.</strong></p>
   </div>
 </div>
@@ -187,9 +153,10 @@ function beforeSubmit() {
   document.getElementById("scamView").style.display = "none";
   document.getElementById("educationView").style.display = "flex";
 
-  return true;
+  return true; // 🚨 MUST BE TRUE
 }
 </script>
 
 </body>
 </html>
+
