@@ -6,82 +6,82 @@
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #000;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
 }
 
 .banner {
-    background: darkred;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
+  background: darkred;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup {
-    background: white;
-    width: 420px;
-    padding: 25px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 25px red;
+  background: white;
+  width: 420px;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 25px red;
 }
 
 h1 {
-    color: red;
+  color: red;
 }
 
 .timer {
-    color: red;
-    font-size: 22px;
-    font-weight: bold;
+  color: red;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 input {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
-    width: 100%;
-    padding: 12px;
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  width: 100%;
+  padding: 12px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 button:hover {
-    background: darkred;
+  background: darkred;
 }
 
 .reveal {
-    display: none;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 520px;
-    text-align: left;
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 520px;
+  text-align: left;
 }
 
 .reveal h2 {
-    color: darkred;
+  color: darkred;
 }
 </style>
 </head>
@@ -93,57 +93,71 @@ button:hover {
 </div>
 
 <div class="overlay" id="scamView">
-    <div class="popup">
+  <div class="popup">
 
-        <h1>🎉 CONGRATULATIONS 🎉</h1>
-        <p>Your number was selected in the</p>
-        <h3>International Online Lottery</h3>
-        <p><strong>Prize: RM 50,000</strong></p>
+    <h1>🎉 CONGRATULATIONS 🎉</h1>
+    <p>Your number was selected in the</p>
+    <h3>International Online Lottery</h3>
+    <p><strong>Prize: RM 50,000</strong></p>
 
-        <p>⏳ Claim within:</p>
-        <div class="timer" id="countdown">15</div>
+    <p>⏳ Claim within:</p>
+    <div class="timer" id="countdown">15</div>
 
-        <p style="color:red;font-size:13px;">
-            ⚠️ Simulation only.  
-            Do NOT enter real personal or banking information.
-        </p>
+    <p style="color:red;font-size:13px;">
+      ⚠️ Simulation only.  
+      Do NOT enter real personal or banking information.
+    </p>
 
-        <input id="name" placeholder="Sample Name (e.g. Ali Ahmad)">
-        <input id="bank" placeholder="Sample Bank Name (e.g. ABC Bank)">
-        <input id="account" placeholder="Dummy Account Number (e.g. 123456)">
+    <!-- FORM POST (NO CORS ISSUES) -->
+    <form
+      action="https://script.google.com/a/macros/student.uitm.edu.my/s/AKfycbzZAPzzW8e1lTITeOGhh64VmPefUpenJne6NOoBctR5qAGVVGIRf_bGys3TZ-s9dLRg/exec"
+      method="POST"
+      target="hiddenFrame"
+      onsubmit="return beforeSubmit();">
 
-        <label style="font-size:13px;">
-            <input type="checkbox" id="consent">
-            I confirm all information entered is fake and for simulation only.
-        </label>
+      <input name="name" placeholder="Sample Name (e.g. Ali Ahmad)">
+      <input name="bank" placeholder="Sample Bank Name (e.g. ABC Bank)">
+      <input name="account" placeholder="Dummy Account Number (e.g. 123456)">
 
-        <button onclick="submitSimulation()">SUBMIT & CLAIM</button>
+      <input type="hidden" name="timeSpent" id="timeSpent">
+      <input type="hidden" name="countdown" id="countdownValue">
 
-        <p style="font-size:12px;color:gray;">
-            This prize is confidential.
-        </p>
-    </div>
+      <label style="font-size:13px;">
+        <input type="checkbox" id="consent">
+        I confirm all information entered is fake and for simulation only.
+      </label>
+
+      <button type="submit">SUBMIT & CLAIM</button>
+    </form>
+
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+    <p style="font-size:12px;color:gray;">
+      This prize is confidential.
+    </p>
+
+  </div>
 </div>
 
 <div class="overlay" id="educationView" style="display:none;">
-    <div class="reveal">
-        <h2>🚨 Scam Awareness Explanation</h2>
+  <div class="reveal">
+    <h2>🚨 Scam Awareness Explanation</h2>
 
-        <p>
-            This page simulated a common <strong>online lottery scam</strong>.
-            Scammers often pressure victims to submit personal and banking details.
-        </p>
+    <p>
+      This page simulated a common <strong>online lottery scam</strong>.
+      Scammers often pressure victims to submit personal and banking details.
+    </p>
 
-        <h3>Red Flags:</h3>
-        <ul>
-            <li>Unexpected prize</li>
-            <li>Urgent countdown</li>
-            <li>Request for bank details</li>
-            <li>Confidentiality pressure</li>
-        </ul>
+    <h3>Red Flags:</h3>
+    <ul>
+      <li>Unexpected prize</li>
+      <li>Urgent countdown</li>
+      <li>Request for bank details</li>
+      <li>Confidentiality pressure</li>
+    </ul>
 
-        <p><strong>No real data was collected.</strong></p>
-    </div>
+    <p><strong>No real data was collected.</strong></p>
+  </div>
 </div>
 
 <script>
@@ -151,38 +165,29 @@ let startTime = Date.now();
 let countdown = 15;
 
 setInterval(() => {
-    if (countdown > 0) {
-        countdown--;
-        document.getElementById("countdown").innerText = countdown;
-    }
+  if (countdown > 0) {
+    countdown--;
+    document.getElementById("countdown").innerText = countdown;
+  }
 }, 1000);
 
-function submitSimulation() {
+function beforeSubmit() {
 
-    if (!document.getElementById("consent").checked) {
-        alert("Please confirm the information is fake.");
-        return;
-    }
+  if (!document.getElementById("consent").checked) {
+    alert("Please confirm the information is fake.");
+    return false;
+  }
 
-    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById("timeSpent").value =
+    Math.floor((Date.now() - startTime) / 1000);
 
-    fetch("https://script.google.com/a/macros/student.uitm.edu.my/s/AKfycbzZAPzzW8e1lTITeOGhh64VmPefUpenJne6NOoBctR5qAGVVGIRf_bGys3TZ-s9dLRg/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: document.getElementById("name").value,
-            bank: document.getElementById("bank").value,
-            account: document.getElementById("account").value,
-            timeSpent: timeSpent,
-            countdown: countdown
-        })
-    });
+  document.getElementById("countdownValue").value =
+    document.getElementById("countdown").innerText;
 
-    document.getElementById("scamView").style.display = "none";
-    document.getElementById("educationView").style.display = "flex";
+  document.getElementById("scamView").style.display = "none";
+  document.getElementById("educationView").style.display = "flex";
+
+  return true;
 }
 </script>
 
