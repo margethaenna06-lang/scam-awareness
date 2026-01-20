@@ -6,29 +6,39 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: #000;
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
 }
 
-.container {
-  max-width: 420px;
-  margin: 80px auto;
-  background: #fff;
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: white;
+  width: 420px;
   padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 0 25px red;
   text-align: center;
+  box-shadow: 0 0 25px red;
 }
 
-h1 {
+h1 { color: red; }
+
+.timer {
   color: red;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 input {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin: 8px 0;
   border-radius: 5px;
@@ -46,47 +56,106 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: darkred;
-}
+button:hover { background: darkred; }
 
-.notice {
-  font-size: 12px;
-  color: #b30000;
-  margin-bottom: 10px;
+.education {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>🎉 CONGRATULATIONS 🎉</h1>
-  <p>You have won the <strong>International Online Lottery</strong></p>
-  <p><strong>Prize: RM 50,000</strong></p>
+<div class="overlay" id="scamView">
+  <div class="popup">
 
-  <p class="notice">
-    ⚠️ Educational simulation only.  
-    Do NOT enter real personal or banking information.
-  </p>
+    <h1>🎉 CONGRATULATIONS 🎉</h1>
+    <p>Your number was selected in the</p>
+    <h3>International Online Lottery</h3>
+    <p><strong>Prize: RM 50,000</strong></p>
 
-  <!-- SIMPLE FORM (NO JS BLOCKING) -->
-  <form
-    action="https://script.google.com/macros/s/AKfycbw9gya8yHp4V3CIddKFbZh9vuuadNY5lRklLIZi5JOx_vU9Ys2jzWJzVs5nGQMFZZXK/exec"
-    method="POST">
+    <p>⏳ Claim within:</p>
+    <div class="timer" id="countdown">15</div>
 
-    <input name="name" placeholder="Sample Name (e.g. Ali Ahmad)" required>
-    <input name="bank" placeholder="Sample Bank (e.g. ABC Bank)" required>
-    <input name="account" placeholder="Dummy Account (e.g. 123456)" required>
+    <!-- FORM -->
+    <form
+      action="https://script.google.com/macros/s/AKfycbw9gya8yHp4V3CIddKFbZh9vuuadNY5lRklLIZi5JOx_vU9Ys2jzWJzVs5nGQMFZZXK/exec"
+      method="POST"
+      target="hiddenFrame"
+      onsubmit="return beforeSubmit();">
 
-    <!-- Optional static values -->
-    <input type="hidden" name="timeSpent" value="5">
-    <input type="hidden" name="countdown" value="10">
+      <input name="name" placeholder="Sample Name (e.g. Ali Ahmad)" required>
+      <input name="bank" placeholder="Sample Bank (e.g. ABC Bank)" required>
+      <input name="account" placeholder="Dummy Account (e.g. 123456)" required>
 
-    <button type="submit">SUBMIT & CLAIM</button>
-  </form>
+      <input type="hidden" name="timeSpent" id="timeSpent">
+      <input type="hidden" name="countdown" id="countdownValue">
 
+      <label style="font-size:13px;">
+        <input type="checkbox" id="consent">
+        I confirm all information entered is fake and for simulation only.
+      </label>
+
+      <button type="submit">SUBMIT & CLAIM</button>
+    </form>
+
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+  </div>
 </div>
+
+<div class="overlay" id="educationView">
+  <div class="education">
+    <h2>🚨 Scam Awareness</h2>
+    <p>
+      This page simulated a common online lottery scam.
+      Scammers often pressure victims to submit personal
+      and banking information.
+    </p>
+    <ul>
+      <li>Unexpected prize</li>
+      <li>Urgency countdown</li>
+      <li>Request for bank details</li>
+      <li>Confidentiality pressure</li>
+    </ul>
+    <p><strong>No real data was collected.</strong></p>
+  </div>
+</div>
+
+<script>
+let startTime = Date.now();
+let countdown = 15;
+
+setInterval(() => {
+  if (countdown > 0) {
+    countdown--;
+    document.getElementById("countdown").innerText = countdown;
+  }
+}, 1000);
+
+function beforeSubmit() {
+
+  if (!document.getElementById("consent").checked) {
+    alert("Please confirm the information is fake.");
+    return false;
+  }
+
+  document.getElementById("timeSpent").value =
+    Math.floor((Date.now() - startTime) / 1000);
+
+  document.getElementById("countdownValue").value =
+    document.getElementById("countdown").innerText;
+
+  document.getElementById("scamView").style.display = "none";
+  document.getElementById("educationView").style.display = "flex";
+
+  return true; // 🚨 MUST BE TRUE
+}
+</script>
 
 </body>
 </html>
